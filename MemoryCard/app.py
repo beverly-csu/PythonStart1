@@ -23,6 +23,7 @@ radio_group.addButton(rbtn_2)
 radio_group.addButton(rbtn_3)
 radio_group.addButton(rbtn_4)
 
+
 def show_question():
     grpbox_answers.show()
     grpbox_result.hide()
@@ -35,11 +36,21 @@ def show_question():
     rbtn_4.setChecked(False)
     radio_group.setExclusive(True)
 
+
 def show_result():
     grpbox_answers.hide()
     grpbox_result.show()
     btn_ok.setText('Следующий вопрос')
     btn_ok.clicked.connect(show_question)
+
+
+btn_ok.setStyleSheet('''
+background-color: #1F3641;
+color: #F0F0F0;
+border-radius: 5%;
+padding: 10% 3% 10% 3%;
+font-size: 16px;
+''')
 
 btn_ok.clicked.connect(show_result)
 
