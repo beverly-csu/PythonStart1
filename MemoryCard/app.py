@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout
 from PyQt5.QtWidgets import QHBoxLayout, QRadioButton, QGroupBox, QButtonGroup
 import sys
+from random import shuffle
 
 
 app = QApplication(sys.argv)
@@ -38,6 +39,7 @@ def show_question():
 
 
 def show_result():
+    check_answer()
     grpbox_answers.hide()
     grpbox_result.show()
     btn_ok.setText('Следующий вопрос')
@@ -49,7 +51,10 @@ background-color: #1F3641;
 color: #F0F0F0;
 border-radius: 5%;
 padding: 10% 3% 10% 3%;
-font-size: 16px;
+''')
+
+window.setStyleSheet('''
+    font-size: 16px;
 ''')
 
 btn_ok.clicked.connect(show_result)
@@ -91,6 +96,27 @@ v_line_main.addLayout(h_line_main_2, stretch=8)
 v_line_main.addStretch(1)
 v_line_main.addLayout(h_line_main_3, stretch=1)
 v_line_main.addStretch(1)
+
+answers = [rbtn_1, rbtn_2, rbtn_3, rbtn_4]
+def ask(question, right_answer, wrong1, wrong2, wrong3):
+    lbl_question.setText(question)
+    shuffle(answers)
+    answers[0].setText(right_answer)
+    answers[1].setText(wrong1)
+    answers[2].setText(wrong2)
+    answers[3].setText(wrong3)
+
+def check_answer():
+    if answers[0].isChecked():
+        lbl_right_answer.setText('Поздравляем! Вы выбрали правильный ответ!')
+        grpbox_result.setStyleSheet('QGroupBox { border: 2px solid #69f369; border-radius: 8%; }')
+    else:
+        lbl_right_answer.setText('Неверный ответ\nПравильный ответ: ' + answers[0].text())
+        grpbox_result.setStyleSheet('QGroupBox { border: 2px solid #ee4433; border-radius: 8%; }')
+
+
+
+ask('Новый вопрос', '12', '21321321', '21321312', '12321312')
 
 #
 grpbox_result.hide()
