@@ -97,14 +97,28 @@ v_line_main.addStretch(1)
 v_line_main.addLayout(h_line_main_3, stretch=1)
 v_line_main.addStretch(1)
 
+class Question:
+    def __init__(self, question, right_answer, wrong1, wrong2, wrong3):
+        self.question = question
+        self.right_answer = right_answer
+        self.wrong1 = wrong1
+        self.wrong2 = wrong2
+        self.wrong3 = wrong3
+
+question_list = [
+    Question('Вопрос №1', 'правильный', 'неправильный', 'неправильный', 'правильный'),
+    Question('Вопрос №2', '1', '2', '4', '1024'),
+    Question('Вопрос №3', '12', '21321321', '21321312', '12321312')
+]
+
 answers = [rbtn_1, rbtn_2, rbtn_3, rbtn_4]
-def ask(question, right_answer, wrong1, wrong2, wrong3):
-    lbl_question.setText(question)
+def ask(q):
+    lbl_question.setText(q.question)
     shuffle(answers)
-    answers[0].setText(right_answer)
-    answers[1].setText(wrong1)
-    answers[2].setText(wrong2)
-    answers[3].setText(wrong3)
+    answers[0].setText(q.right_answer)
+    answers[1].setText(q.wrong1)
+    answers[2].setText(q.wrong2)
+    answers[3].setText(q.wrong3)
 
 def check_answer():
     if answers[0].isChecked():
@@ -114,9 +128,7 @@ def check_answer():
         lbl_right_answer.setText('Неверный ответ\nПравильный ответ: ' + answers[0].text())
         grpbox_result.setStyleSheet('QGroupBox { border: 2px solid #ee4433; border-radius: 8%; }')
 
-
-
-ask('Новый вопрос', '12', '21321321', '21321312', '12321312')
+ask(question_list[0])
 
 #
 grpbox_result.hide()
